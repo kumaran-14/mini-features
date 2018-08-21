@@ -1,0 +1,9 @@
+extends ./layout.pug
+
+block append head
+  title Scholarship Portal
+  style(type='text/css')
+    include ../public/template/bootstrap.min.css
+block content
+  embed(src="/files/generated-pdfs/103117050.pdf", type="application/pdf")
+
