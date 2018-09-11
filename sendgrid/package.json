@@ -1,0 +1,26 @@
+{
+  "name": "upload",
+  "version": "1.0.0",
+  "description": "A simple portal for NITT students to register for scholarships.",
+  "main": "server.js",
+  "author": "Kumaran",
+  "license": "ISC",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "@sendgrid/mail": "^6.3.1",
+    "body-parser": "*",
+    "cookie-parser": "*",
+    "express": "*",
+    "express-session": "*",
+    "express-validator": "*",
+    "mongoose": "*",
+    "nodemailer": "^4.6.8",
+    "nodemon": "^1.18.3",
+    "path": "*",
+    "pug": "*",
+    "request": "^2.88.0",
+    "signale": "*"
+  }
+}
