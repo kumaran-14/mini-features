@@ -20,33 +20,41 @@ app.use(express.static(path.join(__dirname, 'public')));
 //SendGrid middlewares
 const sgMail = require('@sendgrid/mail');
 sgMail.setApiKey(process.env.SENDGRID_API_KEY);
+var request = require("request");
 const msg = {
   to: '',
   from: 'kumaran1432000@gmail.com',
   subject: 'lol;llSending with SendGrid is Fun',
-  text: 'and easy to do anywhere, even with Node.js',
-  html: '<strong>and easy to do anywhere, even with Node.js</strong>',
+	html:''
 };
+var options = { method: 'GET',
+  url: 'https://api.sendgrid.com/v3/templates/d-a83df809215a4e8e8098d3d4a07425a1',
+  headers: { authorization: 'Bearer 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' },
+  body: '{}' };
+
 app.get('/' ,(req,res) => {
 	res.render('email')
 })
 app.post('/', (req,res) =>{
-	msg.to = `${req.body.email}`;
-	sgMail
-  .send(msg)
-  .then(() => {
-     return res.send('ALL OK')
-  })
-  .catch(error => {
-    //Log friendly error
-    console.error(error.toString());
-    //Extract error msg
-    const {message, code, response} = error;
-    //Extract response msg
-    const {headers, body} = response;
-		return res.send('not ok')
-  });
-
+	request(options, function (error, response, body) {
+	  if (error) throw new Error(error);
+		msg.html = `${body.versions[0].html_content}`
+		msg.to = `${req.body.email}`;
+		sgMail
+	  .send(msg)
+	  .then(() => {
+	     return res.send('ALL OK')
+	  })
+	  .catch(error => {
+	    //Log friendly error
+	    console.error(error.toString());
+	    //Extract error msg
+	    const {message, code, response} = error;
+	    //Extract response msg
+	    const {headers, body} = response;
+			return res.send('not ok')
+	  });
+	});
 })
 
 app.listen(8000,()=> {
